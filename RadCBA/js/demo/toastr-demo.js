@@ -1,0 +1,1 @@
+$(document).ready(function(){var message = document.getElementById('toastAlert').innerHTML;if (message != '') {toastr.info(message, 'Message');}});

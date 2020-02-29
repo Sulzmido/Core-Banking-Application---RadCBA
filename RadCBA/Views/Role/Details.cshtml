@@ -1,0 +1,38 @@
+﻿@model RadCBA.Core.ViewModels.RoleViewModels.RoleClaimsViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Role</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.RoleName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RoleName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RoleClaims )
+        </dt>
+
+        <dd>
+            @foreach (var claim in Model.RoleClaims)
+            {
+                <label>| </label>
+                @Html.DisplayFor(c => claim.Name)
+            }
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.RoleId }) |
+    @Html.ActionLink("Back to List", "RoleClaims")
+</p>

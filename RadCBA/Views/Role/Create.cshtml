@@ -1,0 +1,102 @@
+﻿@model RadCBA.Core.ViewModels.RoleViewModels.CreateRoleViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Role</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*making this a table ? or using mulltiple select list ?*@
+        <hr />
+        <h4>Select role claims</h4>
+        <hr />
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+
+                <div class="checkbox">
+                    @Html.CheckBoxFor(model => model.AccountConfigMgt)
+                    @Html.LabelFor(model => model.AccountConfigMgt)
+                    <label>----</label>
+                    @Html.CheckBoxFor(model => model.BranchMgt)
+                    @Html.LabelFor(model => model.BranchMgt)
+                    <label>    </label>
+                    @Html.CheckBoxFor(model => model.CustomerMgt)
+                    @Html.LabelFor(model => model.CustomerMgt)
+                    <label>    </label>
+                    @Html.CheckBoxFor(model => model.CustomerAccountMgt)
+                    @Html.LabelFor(model => model.CustomerAccountMgt)
+                    <label>    </label>
+                    @Html.CheckBoxFor(model => model.FinancialReport)
+                    @Html.LabelFor(model => model.FinancialReport)
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <div class="checkbox">
+                    @Html.CheckBoxFor(model => model.GLMgt)
+                    @Html.LabelFor(model => model.GLMgt)
+                    <label>    </label>
+                    @Html.CheckBoxFor(model => model.GLPosting)
+                    @Html.LabelFor(model => model.GLPosting)
+                    <label>    </label>
+                    @Html.CheckBoxFor(model => model.PostingAuth)
+                    @Html.LabelFor(model => model.PostingAuth)
+                    <label>    </label>
+                    @Html.CheckBoxFor(model => model.RoleMgt)
+                    @Html.LabelFor(model => model.RoleMgt)
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <div class="checkbox">
+                    @Html.CheckBoxFor(model => model.RunEOD)
+                    @Html.LabelFor(model => model.RunEOD)
+                    <label>    </label>
+                    @Html.CheckBoxFor(model => model.TellerMgt)
+                    @Html.LabelFor(model => model.TellerMgt)
+                    <label>    </label>
+                    @Html.CheckBoxFor(model => model.TellerPosting)
+                    @Html.LabelFor(model => model.TellerPosting)
+                    <label>    </label>
+                    @Html.CheckBoxFor(model => model.UserMgt)
+                    @Html.LabelFor(model => model.UserMgt)
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default btn-primary" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "RoleClaims")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

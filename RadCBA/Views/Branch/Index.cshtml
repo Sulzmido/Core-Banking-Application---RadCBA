@@ -1,0 +1,65 @@
+﻿@using RadCBA.Core.Models
+@model IEnumerable<RadCBA.Core.Models.Branch>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>All Branches</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table table-bordered table-striped" id="dataTable">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SortCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SortCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @if (item.Status == BranchStatus.Closed)
+                {
+                    @Html.ActionLink("Open Branch", "OpenOrCloseBranch", new { id = item.ID })
+                }
+                else
+                {
+                    @Html.ActionLink("Close Branch", "OpenOrCloseBranch", new { id = item.ID })
+                } |
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID })
+                @*@Html.ActionLink("Delete", "Delete", new { id=item.ID }) |*@
+            </td>
+        </tr>
+    }
+</tbody>
+
+</table>

@@ -1,0 +1,46 @@
+﻿@model IEnumerable<RadCBA.Core.ViewModels.RoleViewModels.RoleClaimsViewModel>
+
+@{
+    ViewBag.Title = "RoleClaims";
+}
+
+<h2>Role And Claims</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table table-bordered table-striped" id="dataTable">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.RoleName)
+            </th>
+            <th>Role Claims</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.RoleName)
+            </td>
+            <td>
+                @foreach (var claim in item.RoleClaims)
+                {
+                    <label>| </label>
+                    @Html.DisplayFor(x => claim.Name)
+                }
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.RoleId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.RoleId }) @*|
+                    @Html.ActionLink("Delete", "Delete", new { id=item.RoleId })*@
+            </td>
+        </tr>
+    }
+</tbody>
+
+</table>

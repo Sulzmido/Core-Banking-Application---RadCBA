@@ -1,0 +1,99 @@
+﻿@using RadCBA.Core.Models;
+@model IEnumerable<RadCBA.Core.Models.GlPosting>
+
+@{
+    ViewBag.Title = "GlPosts";
+    ApplicationDbContext db = new ApplicationDbContext();
+}
+
+<p id="toastAlert" hidden="hidden">@ViewBag.Msg</p>
+
+<h2>Unapproved GL Posts</h2>
+
+<table class="table table-bordered table-striped" id="dataTable">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CrGlAccount.AccountName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DrGlAccount.AccountName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreditAmount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DebitAmount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Narration)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PostInitiatorId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CrGlAccount.AccountName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DrGlAccount.AccountName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreditAmount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DebitAmount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Narration)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @*@Html.DisplayFor(modelItem => item.PostInitiatorId)*@
+                @{
+                    var name = db.Users.Find(item.PostInitiatorId).UserName;
+                }
+                @name
+            </td>
+            @if (item.Status == PostStatus.Declined)
+            {
+                <td class="text-danger">
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+            }
+            @if (item.Status == PostStatus.Pending)
+            {
+                <td class="text-warning">
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+            }
+            <td>
+                @Html.ActionLink("Approve", "ApproveGlPost", new { id = item.ID }) |
+                @if (item.Status != RadCBA.Core.Models.PostStatus.Declined)
+                {
+                    @Html.ActionLink("Decline", "DeclineGlPost", new { id = item.ID })
+                    <label> | </label>
+                }
+                @Html.ActionLink("Details", "GlDetails", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "GlDelete", new { id = item.ID })
+            </td>
+        </tr>
+                    }
+</tbody>
+
+</table>
